@@ -1,0 +1,62 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-10 col-12 mx-auto">
+                <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    {% if coach_profile.prophile_photo %}
+                    <div class="d-flex col col-lg-4 col-12 mx-auto">
+                        <img src="{{ coach_profile.profile_photo.url }}" style="width:200px; height:200px;" class="rounded rounded-circle mx-auto">
+                    </div>
+                    {% else %}
+                    <div class="d-flex col col-lg-4 col-12 my-1 mx-auto">
+                        <img src="{% static 'dashboard/img/1.png' %}" style="width:200px; height:200px;" class="rounded rounded-circle mx-auto d-block" />
+                    </div>
+                    {% endif %}
+
+                    <div class="d-flex col col-lg-4 col-12 mx-auto">
+                        <span class="mx-auto"><h2>{{ coach_profile.user.first_name }} {{ coach_profile.user.last_name }}</h2></span>
+                    </div>
+
+                    <div class="d-flex col col-lg-4 col-12 mx-auto">
+                        <span class="mx-auto"><h2>{{ coach_profile.bio }}</h2></span>
+                    </div>
+
+                    <hr>
+
+                    <div class="main-container">
+                        <p><b><h5>About</h5></b></p>
+                        <p><i class="fa fa-briefcase info"></i> {{ coach_profile.gender }}</p>
+                        <p><i class="fa fa-home info"></i> {{ coach_profile.address }}</p>
+                        <p><i class="fa fa-phone info"></i> {{ coach_profile.age }}</p>
+                        <p><i class="fa fa-phone info"></i> {{ coach_profile.date_of_birth }}</p>
+                        <p><i class="fa fa-envelope info"></i> {{ coach_profile.user.email }}</p>
+                        <p><i class="fa fa-phone info"></i> {{ coach_profile.phone }}</p>
+                        <hr>
+                        <p><h5>Qualifications</h5></b></p>
+                        <p><i class="fas fa-school"></i>{{ coach_profile.education }}</p>
+                        <p>{{ coach_profile.team }}</p>
+                        <p>{{ coach_profile.resume.url }}</p>
+                        <hr>
+                    </div>
+
+                    {% if coach_profile.team_icon %}
+                    <div class="col col-lg-4 col-12">
+                        <img src="{{ coach_profile.team_icon.url }}" style="width:200px; height:200px;" />
+                    </div>
+                    {% else %}
+                    <div class="d-flex col col-lg-4 col-12 my-1">
+                        <img src="{% static 'dashboard/img/1.png' %}" style="width:200px; height:200px;" class="rounded rounded-circle mx-auto d-block" />
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

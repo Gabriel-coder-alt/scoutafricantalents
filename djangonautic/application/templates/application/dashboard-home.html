@@ -1,0 +1,32 @@
+{% extends 'dashboard_base_template.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-12 col-12">
+            <div class="card">
+                <div class="card-header text-center text-white bg-primary"><h4 class="m-0 font-weight-bold">Recent Activity Log</h4></div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ ActivityLog.date }}</td>
+                                    <td>{{ ActivityLog.time_in }}</td>
+                                    <td>{{ ActivityLog.time_out }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

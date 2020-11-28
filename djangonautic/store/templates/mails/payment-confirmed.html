@@ -1,0 +1,8 @@
+{% autoescape off %}
+Hi {{ firstname }} {{ lastname }},
+Your payment has been confirmed and your account has been debited. Below is a summarry of your transactions.
+Subscription Charge: {{ transaction_fee }}
+Transaction Fee: {{ subscription_fee }}
+Total: {{ gross_payment }}
+Thanks once again for subscribing for ScoutAfricanTalents.com.
+{% endautoescape %}

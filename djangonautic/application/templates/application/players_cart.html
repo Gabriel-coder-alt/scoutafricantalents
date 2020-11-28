@@ -1,0 +1,43 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="col col-lg-12 mx-auto">
+                <div class="row">
+                    <div class="col col-lg-4 col-12 text-center my-2 ml-auto">
+                        <div class="card shadow">
+                            <div class="card-header bg-info"><h4 class="display-5 text-white">{{ amateurPlayer.membership_type }}</h4></div>
+                            <div class="card-body">
+                                <p><img src="{{ amateurPlayer.icon.url }}" height="150px" width="150px"></p>
+                                <hr>
+                                <p><h1>${{ amateurPlayer.price }}</h1></p>
+                                <hr>
+                                <p>{{ amateurPlayer.account_features }}</p>
+                                <hr>
+                                <a href="{% url 'add_player' id=amateurPlayer.id %}" style="text-decoration: none;"><button class="btn btn-block btn-info">Create Player</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-lg-4 col-12 text-center my-2 mr-auto">
+                        <div class="card shadow">
+                            <div class="card-header bg-success"><h4 class="display-5 text-white">{{ proPlayer.membership_type }}</h4></div>
+                            <div class="card-body">
+                                <p><img src="{{ proPlayer.icon.url }}" height="150px" width="150px"></p>
+                                <hr>
+                                <p><h1>${{ proPlayer.price }}</h1></p>
+                                <hr>
+                                <p>{{ proPlayer.account_features }}</p>
+                                <hr>
+                                <a href="{% url 'add_player' id=proPlayer.id %}" style="text-decoration: none;"><button class="btn btn-block btn-success">Create Player</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

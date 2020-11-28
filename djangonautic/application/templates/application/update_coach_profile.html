@@ -1,0 +1,92 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container">
+        <div class="row my-3">
+            <div class="col col-lg-10 col-12 mx-auto">
+                <div class="card shadow">
+                    <div class="card-header bg-primary py-3">
+                        <h4 class="m-0 font-weight-bold  text-center text-white">Update Player Profile</h4>
+                    </div>
+                    
+                    <div class="card-body">        
+                        <div class="col col-lg-12 col-12 mt-5">
+                            <form action="{% url 'update_coach_profile' %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="form-group">
+                                    <label for="nationality">Nationality*</label>
+                                    <input type="text" value="{{ coach_profile.nationality }}" required name="nationality" class="form-control" id="nationality" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="gender">Gender*</label>
+                                    <select name="gender" class="select form-control" id="gender">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age">Age*</label>
+                                    <input type="number" value="{{ coach_profile.age }}" required name="age" class="form-control" id="age" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nationality">Date of birth*</label>
+                                    <input type="text" value="{{ coach_profile.date_of_birth }}" required name="date_of_birth" placeholder="Day Month Year, e.g. 21 September 1998" class="form-control" id="nationality" />
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="bio">Bio*</label>
+                                    <input type="text" value="{{ coach_profile.bio }}" required name="bio" placeholder="Your bio should be short and not exceeding 250 characters long" class="form-control" id="bio" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="education">Education</label>
+                                    <select id="education" name="education" class="form-control">
+                                        <option value="None">None</option>
+                                        <option value="High School Certificate">Hight School Certificate</option>
+                                        <option value="Graduate">Graduate</option>
+                                        <option value="Postgraduate">Postgraduate</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone">Phone*</label>
+                                    <input type="number" id="phone" class="form-control" value="{{ coach_profile.phone }}" name="phone" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address">Address*</label>
+                                    <input type="text" id="address" class="form-control" value="{{ coach_profile.address }}" name="address" required />
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="team">Team*</label>
+                                    <input type="text" value="{{ coach_profile.team }}" required name="team" class="form-control" id="nationality" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="teamIcon">Team Icon*</label>
+                                    <input type="file" value="{{ coach_profile.team_icon }}" required name="team_icon" class="file-input file-upload form-control-file" id="profilePhoto" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profilePhoto">Profile Photo*</label>
+                                    <input type="file" value="{{ coach_profile.profile_photo }}" required name="profile_photo" class="file-input file-upload form-control-file" id="profilePhoto" />
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-block">Upload</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row my-3">
+        <div class="col col-lg-10 col-12 mx-auto">
+            <div class="card shadow">
+
+                <div class="card-header bg-primary py-3">
+                    <h4 class="m-0 font-weight-bold text-white text-center">Update Match Statistics</h4>
+                </div>
+                <div class="card-body">
+                    <div class="col col-lg-12 col-12 mt-5">
+                        <form action="{% url 'update_match_statistics' id=match.id %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="date">Date*</label>
+                                <input type="date" class="form-control" id="date" required name="date" value="{{ match.date }}" />
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="venue">Venue*</label>
+                                <input type="text" class="form-control" id="venue" required name="venue" value="{{ match.venue }}" />
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="playedAgainst">Played against*</label>
+                                <input type="text" class="form-control" id="playedAgainst" required name="played_against" value="{{ match.played_against }}" />
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="teamScore">Team score*</label>
+                                <input type="number" class="form-control" id="teamScore" required name="team_score" value="{{ match.team_score }}" />
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="opponentScore">Opponent score*</label>
+                                <input type="number" class="form-control" id="opponentScore" required name="opponent_score" value="{{ match.opponent_score }}" />
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="goalScored">Goals scored</label>
+                                <input type="number" class="form-control" id="goalScored" required name="goal_scored" value="{{ match.goals_scored }}" />
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="assist">Assist</label>
+                                <input type="number" class="form-control" id="assist" required name="assist" value="{{ match.assist }}" />
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="yellowCard">Yellow card</label>
+                                <select id="yellowCard" class="form-control" name="yellow_card">
+                                    <option value="-">---</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+            
+                            <div class="form-group">
+                                <label for="redCard">Red Card</label>
+                                <select id="redCard" class="form-control" name="red_card">
+                                    <option value="-">---</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="league">League</label>
+                                <input type="text" class="form-control" id="league" required name="league" value="{{ match.league }}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="shotsOnTarget">Shots on target</label>
+                                <input type="number" class="form-control" id="shotsOnTarget" required name="shots_on_target" value="{{ match.shots_on_target }}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="passesCompleted">Passes completed</label>
+                                <input type="number" class="form-control" id="passesCompleted" required name="passes_completed" value="{{ match.passes_completed }}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="distanceCovered">Distance covered</label>
+                                <input type="number" step="0.01" class="form-control" id="distanceCovered" required name="distance_covered" value="{{ match.distance_covered }}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="saves">Saves</label>
+                                <input type="number" class="form-control" id="saves" required name="saves" value="{{ match.saves }}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="timeInMinutes">Time in minutes</label>
+                                <input type="number" step="0.01" class="form-control" id="timeInMinutes" required name="time_in_minutes" value="{{ match.saves }}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="opponentIcon">Opponent icon</label>
+                                <input type="file" class="form-control-file" id="opponentIcon" required name="opponent_icon" />
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Update</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

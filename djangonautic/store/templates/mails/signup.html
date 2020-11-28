@@ -1,0 +1,5 @@
+{% autoescape off %}
+Hi {{ firstname }} {{ lastname }},
+Thank you for joining ScoutAfricanTalents. Follow the link below to continue with your registration.
+http://{{ domain }}{% url 'signup' uidb64=uid %}
+{% endautoescape %}

@@ -1,0 +1,5 @@
+{% autoescape off %}
+Hi {{ firstname }} {{ lastname }},
+Your membership subscription for scoutafricantalents.com was not successful, check your payment details and try again later following the link below.
+http://{{ domain }}{% url 'store' %}
+{% endautoescape %}

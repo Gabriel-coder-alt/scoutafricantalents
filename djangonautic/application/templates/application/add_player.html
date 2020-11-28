@@ -1,0 +1,37 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-10 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary">
+                    <h4 class="m-0 text-white text-center">Create Player</h4>
+                </div>
+        
+                <div class="card-body">
+                    <form action="{% url 'add_player' id=account.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <script type="text/javascript">
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("confirm_password");
+    function validatePassword(){
+        if (password.value != confirm_password.value){
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('')
+        }
+    }
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script> -->
+{% endblock %}

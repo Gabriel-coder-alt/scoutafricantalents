@@ -1,0 +1,53 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row my-3">
+        <div class="col col-lg-10 col-12 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-primary">
+                    <h4 class="m-0 font-weight-bold text-white text-center">Update Player Ratings</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="col col-lg-12 col-12 mt-5">
+                        <form action="{% url 'update_player_ratings' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="stamina">Stamina*</label>
+                                <input type="number" id="stamina" class="form-control" name="stamina" value="{{ ratings.stamina }}" required step="0.01" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="durability">Durability*</label>
+                                <input type="number" id="durability" class="form-control" name="durability" value="{{ ratings.durability }}" required step="0.01" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="speed">Speed*</label>
+                                <input type="number" id="speed" class="form-control" name="speed" value="{{ ratings.speed }}" required step="0.01" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="passAccuracy">Pass accuracy*</label>
+                                <input type="number" id="passAccuracy" class="form-control" name="pass_accuracy" value="{{ ratings.pass_accuracy }}" required step="0.01" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="shotAccuracy">Shot accuracy*</label>
+                                <input type="number" id="shotAccuracy" class="form-control" name="shot_accuracy" value="{{ ratings.shot_accuracy }}" required step="0.01" />
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Update</button>
+                            </div>
+    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

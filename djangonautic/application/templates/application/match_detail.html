@@ -1,0 +1,119 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row my-3">
+        <div class="col col-lg-12 col-12 mx-auto">
+            <div class="card shadow">
+                <!--<div class="card-header bg-primary py-3">
+                    <h4 class="m-0 font-weight-bold text-white text-center">Match Results</h4>
+                </div>-->
+                <div class="card-body" style="background-image: url('{% static 'img/stadium-01.jpg' %}'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
+                    <div class="row my-3 px-auto mx-auto">
+                        <div class="col col-lg-3 col-12"></div>
+                        <div class="col col-lg-2 col-12 text-center"><img src="{{ match.team_icon.url }}" style="width:150px; height:150px;"/><p><h2 class="text-white">{{ match.played_for }}</h2></p></div>
+                        <div class="col col-lg-2 col-12 text-center"><h1 class="display-4 text-white my-5">{{ match.team_score }} - {{ match.opponent_score }}</h1></div>
+                        <div class="col col-lg-2 col-12 text-center"><img src="{{ match.opponent_icon.url }}" style="width:150px; height:150px;"/><p><h2 class="text-white">{{ match.played_against }}</h2></p></div>
+                        <div class="col col-lg-3 col-12"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col col-lg-6 col-12 mt-2 mx-auto">
+                            <div class="table-responsive">
+                              <table class="table table-striped table-dark">
+                                <thead class="bg-primary">
+                                  <tr>
+                                    <th scope="col">Record</th>
+                                    <th scope="col">Result</th>
+                                  </tr>
+
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">League</th>
+                                        <td>{{ match.league }}</td>
+                                    </tr>
+                                  <tr>
+                                    <th scope="row">Date</th>
+                                    <td>{{ match.date }}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">Venue</th>
+                                    <td>{{ match.venue }}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">Duration(In Minutes)</th>
+                                    <td>{{ match.time_in_minutes }}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">Club</th>
+                                    <td>{{ match.played_for }}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">Opponent's Club</th>
+                                    <td>{{ match.played_against }}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">Club's Score</th>
+                                    <td>{{ match.team_score }}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">Opponent's Score</th>
+                                    <td>{{ match.opponent_score }}</td>
+                                  </tr>
+                                  
+                                  <tr>
+                                    <th scope="row">Shots On Target</th>
+                                    <td>{{ match.shots_on_target }}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">Passes Completed</th>
+                                    <td>{{ match.passes_completed }}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">Saves</th>
+                                    <td>{{ match.saves }}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">Assists</th>
+                                    <td>{{ match.assist }}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">Goals Scored</th>
+                                    <td>{{ match.goals_scored }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Yellow Card<i class=""></i></th>
+                                    <td>{{ match.yellow_card }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Red Card<i class=""></i></th>
+                                    <td>{{ match.red_card }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Distance Covered(in Meters)<i class=""></i></th>
+                                    <td>{{ match.distance_covered }}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

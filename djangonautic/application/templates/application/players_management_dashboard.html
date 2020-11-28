@@ -1,0 +1,89 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="card shadow">
+        
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Profile</th>
+                            <th>Account</th>
+                            <th>Statistics</th>
+                            <th>Player Ratings</th>
+                            <th>Match Record</th>
+                            <th>Videos</th>
+                            <th>Membership Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.player.first_name }} {{ user.player.last_name }}</td>
+
+                            <td>
+                                <a href="{% url 'player_profile' id=user.player.id %}" class="text-info"><i class="fas fa-eye"></i></a>
+                                <a href="{% url 'upload&update_player_profile_agent' id=user.player.id %}" class="text-success"><i class="fas fa-upload"></i></a>
+                            </td>
+
+                            <td><a href="{% url 'edit_player_account' id=user.player.id %}" class="text-primary"><i class="fas fa-user-edit"></i></a> <a href="{% url 'change_player_password' id=user.player.id %}" class="text-info"><i class="fas fa-key"></i></a></td>
+
+                            <td>
+                                {% if user.member_group.name == 'Amateur Player' %}
+                                {% else %}
+                                <a href="{% url 'player_statistics_view' id=user.player.id %}" class="text-info"><i class="fas fa-eye"></i></a>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if user.member_group.name == 'Amateur Player' %}
+                                {% else %}
+                                <a href="{% url 'manage_player_ratings' id=user.player.id %}" class="text-success"><i class="fas fa-upload"></i></a>
+                                {% endif %}
+                            </td>
+
+                            <td>   
+                                {% if user.member_group.name == 'Amateur Player' %}
+                                {% else %}
+                                <a href="{% url 'upload_player_match_record' id=user.player.id %}" class="text-success"><i class="fas fa-upload"></i></a>
+                                {% endif %}
+                            </td>
+
+                            <td><a href="{% url 'player_video_upload' id=user.player.id %}" class="text-success"><i class="fas fa-upload"></i></a> <a href="{% url 'manage_player_videos' id=user.player.id %}" class="text-primary"><i class="fas fa-video"></i></a></td>
+                            
+                            <td>{{ user.member_group }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if users.has_other_pages %}
+                    <ul class="pagination">
+                        {% if users.has_previous %}
+                        <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in users.paginator.page_range %}
+                        {% if users.number == i %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if users.has_next %}
+                        <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="card shadow">
+        <div class="card-header bg-primary">
+            <h4 class="m-0 font-weight-bold text-white text-center">Player Search</h4>
+        </div>
+
+        <div class="card-body">
+            <form action="{% url 'player_search' %}" method="GET">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col col-lg-4 col-12">
+                        <div class="form-group">
+                            <label for="minAge">Min Age</label>
+                            <input type="number" id="minAge" class="form-control" required name="min_age" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="minHeight">Min Height</label>
+                            <input id="minHeight" class="form-control" required name="min_height" />
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="minWeight">Min Weight</label>
+                            <input id="minWeight" class="form-control" required name="min_weight" />
+                        </div>
+                    </div>
+    
+                    <div class="col col-lg-4 col-12">
+                        <div class="form-group">
+                            <label for="maxAge">Max Age</label>
+                            <input type="number" id="maxAge" class="form-control" required name="max_age" />
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="maxHeight">Max Height</label>
+                            <input id="maxHeight" class="form-control" required name="max_height" />
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="maxWeight">Max Weight</label>
+                            <input id="maxWeight" class="form-control" required name="max_weight" />
+                        </div>
+                    </div>
+    
+                    <div class="col col-lg-4 col-12">
+                        <div class="form-group">
+                            <label for="strongFoot">Strong Foot</label>
+                            <select id="strongFoot" class="form-control" name="strong_foot">
+                                <option value="-">---</option>
+                                <option value="Left">Left</option>
+                                <option value="Right">Right</option>
+                                <option value="Both">Both</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="position">Position</label>
+                            <select id="position" class="form-control" name="position">
+                                <option value="-">---</option>
+                                <option value="Attacker">Attacker</option>
+                                <option value="Defender">Defender</option>
+                                <option value="Midfielder">Midfielder</option>
+                                <option value="Goalkeeper">Goalkeeper</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" class="form-control" name="gender">
+                                <option value="-">---</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col col-lg-4 col-12">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-block btn-primary" />
+                        </div>
+                    </div>
+                </div>                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

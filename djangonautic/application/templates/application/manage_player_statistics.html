@@ -1,0 +1,269 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-header bg-primary py-3">
+                <h4 class="m-0 font-weight-bold text-center text-white">My Statistics</h4>
+            </div>
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="d-flex col col-lg-4 col-12 my-1">
+                        {% if player_profile %}
+                            <img src="{{ player_profile.profile_photo.url }}" style="width:300px; height:300px;" class="rounded rounded-circle mx-auto d-block" />
+                        {% else %}
+                            <img src="{% static 'dashboard/img/1.png' %}" style="width:300px; height:300px;" class="rounded rounded-circle mx-auto d-block" />
+                        {% endif%}
+                    </div>
+
+                    <div class="col col-lg-4 col-12 mt-2">
+                        {% if items %}
+                            <h5 class="m-0 font-weight-bold mb-2 text-dark">Season Statistics</h5>
+
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Appearances:</th>
+                                        <td>[{{ appearances }}]</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Goals/Assists:</th>
+                                        <td>{{ goals }} / {{ assists }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Shots(per game):</th>
+                                        <td>{{ shots }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Passes completed:</th>
+                                        <td>{{ passes }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Distance Covered(km):</th>
+                                        <td>{{ distance_covered }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Saves:</th>
+                                        <td>{{ saves }}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        {% else %}
+                        <h5 class="m-0 font-weight-bold mb-2 text-dark">Season Statistics</h5>
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Appearances:</th>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Goals/Assists:</th>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Shots(per game):</th>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Passes completed:</th>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Distance Covered(km):</th>
+                                        <td></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row">Saves:</th>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        {% endif %}
+                        
+                    </div>
+
+                    <div class="col col-lg-4 col-12 mt-2">
+                        <h5 class="m-0 font-weight-bold mb-3 text-dark">Player Ratings</h5>
+
+                        <h4 class="small font-weight-bold">Durability<span class="float-right">%</span><span id="bar1" class="float-right">{{ rating.durability }}</span></h4>
+                        <div class="progress mb-4">
+                            <div role="progressbar" id="forbar1" style="width: {{ rating.durability }}%; background-color: blueviolet;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                        <h4 class="small font-weight-bold">Stamina<span class="float-right">%</span><span id="bar2" class="float-right">{{ rating.stamina }}</span></h4>
+                        <div class="progress mb-4">
+                            <div role="progressbar" id="forbar2" style="width: {{ rating.stamina }}%; background-color: blueviolet;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                        <h4 class="small font-weight-bold">Speed<span class="float-right">%</span><span id="bar3" class="float-right">{{ rating.speed }}</span></h4>
+                        <div class="progress mb-4">
+                            <div role="progressbar" id="forbar3" style="width: {{ rating.speed }}%; background-color: blueviolet;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                        <h4 class="small font-weight-bold">Shot accuracy<span class="float-right">%</span><span id="bar4" class="float-right">{{ rating.shot_accuracy }}</span></h4>
+                        <div class="progress mb-4">
+                            <div role="progressbar" id="forbar4" style="width: {{ rating.shot_accuracy }}%; background-color: blueviolet;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+
+                        <h4 class="small font-weight-bold">Pass accuracy<span class="float-right">%</span><span id="bar5" class="float-right">{{ rating.pass_accuracy }}</span></h4>
+                        <div class="progress mb-4">
+                            <div role="progressbar" id="forbar5" style="width: {{ rating.pass_accuracy }}%; background-color: blueviolet;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-lg-12 col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                              <thead>
+                                <tr>
+                                  <th>Match Day</th>
+                                  <th>Venue</th>
+                                  <th>For</th>
+                                  <th>Against</th>
+                                  <th>Result</th>
+                                  <th><i class="fas fa-futbol" style="color: aqua;"></i></th>
+                                  <th><i class="fas fa-fw fa-futbol" style="color: yellow;"></i></th>
+                                  <th><span class="text-warning"><i class="fas fa-square-full"></i></span></th>
+                                  <th><span class="text-danger"><i class="fas fa-square-full"></i></span></th>
+                                  <th><i class="fas fa-fw fa-stopwatch" style="color: black;"></i></th>
+                                  <th>Actions</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                {% for item in items %}
+                                <tr>
+                                  <td>{{ item.date }}</td>
+                                  <td>{{ item.venue }}</td>
+                                  <td>{{ item.played_for }}</td>
+                                  <td>{{ item.played_against }}</td>
+                                  <td>{{ item.team_score }} - {{ item.opponent_score }}</td>
+                                  <td>{{ item.goals_scored }}</td>
+                                  <td>{{ item.assist }}</td>
+                                  <td>{{ item.yellow_card }}</td>
+                                  <td>{{ item.red_card }}</td>
+                                  <td>{{ item.time_in_minutes }}</td>
+                                  <td>
+                                    <a href="{% url 'individual_match_result' id=user.id mid=item.id %}"><span class="text-primary mr-2"><i class="fas fa-eye"></i></span></a>
+                                    <a href="{% url 'update_player_match_record' id=user.id mid=item.id %}" ><span class="text-success mr-2"><i class="fas fa-edit"></i></span></a>
+                                    <a href="{% url 'delete_player_match_record' id=user.id mid=item.id %}"><span class="text-danger"><i class="fas fa-trash-alt"></i></span></a>
+                                </td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+
+                            {% if items.has_other_pages %}
+                                <ul class="pagination">
+                                    {% if items.has_previous %}
+                                        <li><a href="?page={{ items.previous_page_number }}">&laquo;</a></li>
+                                    {% else %}
+                                        <li class="disabled"><span>&laquo;</span></li>
+                                    {% endif %}
+                                    {% for i in items.paginator.page_range %}
+                                    {% if items.number == i %}
+                                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                    {% else %}
+                                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% if items.has_next %}
+                                        <li><a href="?page={{ items.next_page_number }}">&raquo;</a></li>
+                                    {% else %}
+                                        <li class="disabled"><span>&raquo;</span></li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        v = document.getElementById("bar1").innerHTML;
+        w = document.getElementById("bar2").innerHTML;
+        x = document.getElementById("bar3").innerHTML;
+        y = document.getElementById("bar4").innerHTML;
+        z = document.getElementById("bar5").innerHTML;
+        function progressBar1(a) {
+            if (a <= 25) {
+                document.getElementById("forbar1").style.backgroundC = "red";
+            } else if (a <= 50) {
+                document.getElementById("forbar1").style.backgroundColor = "orange";
+            } else if (a <= 75) {
+                document.getElementById("forbar1").style.backgroundColor = "yellow";
+            } else {
+                document.getElementById("forbar1").style.backgroundColor = "green";
+            }
+        }
+
+        function progressBar2(b) {
+            if (b <= 25) {
+                document.getElementById("forbar2").style.backgroundColor = "red";
+            } else if (b <= 50) {
+                document.getElementById("forbar2").style.backgroundColor = "orange";
+            } else if (b <= 75) {
+                document.getElementById("forbar2").style.backgroundColor = "yellow";
+            } else {
+                document.getElementById("forbar2").style.backgroundColor = "green";
+            }
+        }
+
+        function progressBar3(c) {
+            if (c <= 25) {
+                document.getElementById("forbar3").style.backgroundColor = "red";
+            } else if (c <= 50) {
+                document.getElementById("forbar3").style.backgroundColor = "orange";
+            } else if (c <= 75) {
+                document.getElementById("forbar3").style.backgroundColor = "yellow";
+            } else {
+                document.getElementById("forbar3").style.backgroundColor = "green";
+            }
+        }
+
+        function progressBar4(d) {
+            if (d <= 25) {
+                document.getElementById("forbar4").style.backgroundColor = "red";
+            } else if (d <= 50) {
+                document.getElementById("forbar4").style.backgroundColor = "orange";
+            } else if (d <= 75) {
+                document.getElementById("forbar4").style.backgroundColor = "yellow";
+            } else {
+                document.getElementById("forbar4").style.backgroundColor = "green";
+            }
+        }
+
+        function progressBar5(f) {
+            if (f <= 25) {
+                document.getElementById("forbar5").style.backgroundColor = "red";
+            } else if (f <= 50) {
+                document.getElementById("forbar5").style.backgroundColor = "orange";
+            } else if (f <= 75) {
+                document.getElementById("forbar5").style.backgroundColor = "yellow";
+            } else {
+                document.getElementById("forbar5").style.backgroundColor = "green";
+            }
+        }
+        progressBar1(v);
+        progressBar2(w);
+        progressBar3(x);
+        progressBar4(y);
+        progressBar5(z);
+    </script>
+{% endblock %}

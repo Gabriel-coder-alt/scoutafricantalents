@@ -1,0 +1,38 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col col-lg-12 col-12 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col col-lg-8 col-12 mb-3">
+              <video class="col col-lg-12 col-12 my-2" style="height:400px; background-color: #000000;" controls>
+                <source src="{{ video.video.url }}" type="video/mp4">
+              </video>
+              <p><h4>{{ video.title }}</h4></p>
+              <hr>
+              <p><span style="font-weight: bold;">Date of publish:</span> {{ video.date_of_publish }}</p>
+            </div>
+
+            <div class="col col-lg-4 col-12 mt-2">
+              {% for i in related_videos %}
+              <div class="row">
+                <div class="col col-lg-4 col-sm-4 col-xs-4">
+                  <img src="{% static 'dashboard/img/1.png' %}"  style="width:100px; height:100px;" class="mx-auto d-block"/>
+                </div>
+                <div class="col col-lg-8 col-sm-8 col-xs-8"><h5><a href="{% url 'player_video_view' id=user.id vid=i.id %}">{{ i.title }}</a></h5>
+                <p>{{ i.date_of_publish }}</p>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

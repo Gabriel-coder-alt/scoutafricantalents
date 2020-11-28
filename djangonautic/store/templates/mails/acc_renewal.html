@@ -1,0 +1,5 @@
+{% autoescape off %}
+Hi {{ firstname }} {{ lastname }},
+Your membership renewal was successful. Visit the link below to continue using our service.
+http://{{ domain }}{% url 'login' %}
+{% endautoescape %}

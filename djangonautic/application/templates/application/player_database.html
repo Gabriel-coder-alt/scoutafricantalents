@@ -1,0 +1,149 @@
+{% extends 'dashboard_base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load auth_extras %}
+{% block content %}
+<div class="container">
+    <div class="card shadow">
+        <div class="card-header bg-primary">
+            <h4 class="m-0 font-weight-bold text-white text-center">Player Database</h4>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <form action="." method="GET">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col col-lg-4 col-12">
+                            <div class="form-group">
+                                <label for="minAge">Min Age</label>
+                                <input type="number" id="minAge" class="form-control" name="min_age" />
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="minHeight">Min Height</label>
+                                <input id="minHeight" class="form-control" name="min_height" />
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="minWeight">Min Weight</label>
+                                <input id="minWeight" class="form-control" name="min_weight" />
+                            </div>
+                        </div>
+        
+                        <div class="col col-lg-4 col-12">
+                            <div class="form-group">
+                                <label for="maxAge">Max Age</label>
+                                <input type="number" id="maxAge" class="form-control" name="max_age" />
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="maxHeight">Max Height</label>
+                                <input id="maxHeight" class="form-control" name="max_height" />
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="maxWeight">Max Weight</label>
+                                <input id="maxWeight" class="form-control" name="max_weight" />
+                            </div>
+                        </div>
+        
+                        <div class="col col-lg-4 col-12">
+                            <div class="form-group">
+                                <label for="strongFoot">Strong Foot</label>
+                                <select id="strongFoot" class="form-control" name="strong_foot">
+                                    <option value="-">---</option>
+                                    <option value="Left">Left</option>
+                                    <option value="Right">Right</option>
+                                    <option value="Both">Both</option>
+                                </select>
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="position">Position</label>
+                                <select id="position" class="form-control" name="position">
+                                    <option value="-">---</option>
+                                    <option value="Attacker">Attacker</option>
+                                    <option value="Defender">Defender</option>
+                                    <option value="Midfielder">Midfielder</option>
+                                    <option value="Goalkeeper">Goalkeeper</option>
+                                </select>
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender" class="form-control" name="gender">
+                                    <option value="-">---</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-lg-4 col-12">
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-block btn-primary" />
+                            </div>
+                        </div>
+                    </div>                
+                </form>    
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Nationality</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Statistics</th>
+                            <th>Videos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for player in players %}
+                        <tr>
+                            <td><a href="{% url 'player_profile' id=player.player.id %}">{{ player.player.first_name }} {{ player.player.last_name }}</a></td>
+                            <td>{{ player.nationality }}</td>
+                            <td>{{ player.age }}</td>
+                            <td>{{ player.gender }}</td>
+                            <td>
+                                {% if player.player|has_group:'Amateur Player' %}
+                                Not Available
+                                {% else %}
+                                <a href="{% url 'individual_player_statistics' id=player.player.id %}">Available</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'player_video_list' id=player.player.id %}">View Videos</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if players.has_other_pages %}
+                    <ul class="pagination">
+                        {% if players.has_previous %}
+                        <li><a href="?page={{ players.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in players.paginator.page_range %}
+                        {% if players.number == i %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if players.has_next %}
+                        <li><a href="?page={{ players.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
